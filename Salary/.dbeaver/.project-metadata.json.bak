@@ -1,0 +1,1 @@
+{"resources":{"Scripts/2.sql":{"default-datasource":"duckdb_jdbc-195d7356fdd-79ae1c82be41ff0e","default-catalog":"salaries"},"Scripts/Script.sql":{"default-datasource":"duckdb_jdbc-195d7356fdd-79ae1c82be41ff0e","default-catalog":"salaries"},"read_csv.sql":{"default-datasource":"duckdb_jdbc-195d7356fdd-79ae1c82be41ff0e","default-catalog":"salaries"}}}
