@@ -1,19 +1,3 @@
-# in Open Weather Data Documentation, find out the relevant endpoint for making API request by city name and using Celsius as the unit of measurement for temperature
-# use python to send multiple get requests to get weather data for Stockholm, London, Paris, New York and Tokyo
-
-# use dlt to create a weather.duckdb database and append weather data for each city to a table called weather_by_city in schema staging. This table should have the following columns:
-
-# city: the corresponding city
-# timestamp: the time when you send the requests
-# temperature: access value for the key "temp" in the json data
-# humidity: access value for the key "humidity" in the json data
-# pressure: access value for the key "pressure" in the json data
-# weather_description: access value for the key "description" in the json data
-# wind_speed: access value for the key "speed" in the json data
-# cloudiness: access value for the key "all" in the json data
-
-# use duckdblibrary in python to check if the data are loaded as expected. You should use connext manager to connect to the db. You can refer to duckdb documentation for these
-
 # python -m venv ./env  
 # .\env\Scripts\Activate.ps1
 # uv pip install dlt duckdb
@@ -46,7 +30,7 @@ cities = ['Stockholm', 'London', 'Paris', 'New York', 'Tokyo']
 def get_weather_data(city):
     url = url_template.format(city=city, api_key=WEATHER_API_KEY)
     response = requests.get(url)
-    if response.status_code == 200:
+    if response.status_code == 200: #  200 = att det lyckas
         return response.json()
     else:
         return None
@@ -77,17 +61,18 @@ def load_weather_data():
             weather_info = extract_weather_info(city, data)
             # Lägg till väderdata till DuckDB
             insert_weather_data_to_duckdb(con, weather_info)
-
     # Stäng anslutningen till DuckDB
     con.close()
 
-# Funktion för att kontrollera att data har lagts till i DuckDB
 def check_data_in_duckdb():
-    con = duckdb.connect("weather.duckdb")
-    result = con.execute("SELECT * FROM staging.weather_by_city").fetchall()
-    for row in result:
-        print(row)
-    con.close()
+    # Use context manager to ensure connection is closed after block execution
+    with duckdb.connect("weather.duckdb") as con:
+        # Query the database to check if data has been inserted into the table
+        result = con.execute("SELECT * FROM staging.weather_by_city").fetchall()
+        # Print each row of the result
+        for row in result:
+            print(row)
+
 
 
 
