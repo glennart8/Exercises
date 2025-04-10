@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: staging
+    tables:
+      - name: data_field_job_ads
+
+models:
+  - name: job_ads
+    description: "Stagingmodell för job ads med kolumnalias"

@@ -28,6 +28,6 @@ def insert_parking_data(con, data):
     except Exception as e:
         print(f"Fel vid insättning av data: {e}")
         
-# Ändra datatypen för pris-kolumnen i tabellen
+#   Ändrade till varchar för att kunna läsa in data från API:et
 #   ALTER TABLE staging.parking_addresses
 #   ALTER COLUMN price TYPE VARCHAR(255);

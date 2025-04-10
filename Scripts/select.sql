@@ -1,7 +1,7 @@
 -- HEMNET DATA ANALYZING
 
 -- b Make a wildcard selection to checkout the data
-SELECT * from hemnet
+SELECT * from main.hemnet
 WHERE commune LIKE 'Gamla Enskede%'
 
 -- c Find out how many rows there are in the table

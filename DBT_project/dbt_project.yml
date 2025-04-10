@@ -1,0 +1,22 @@
+name: 'dbt_code'  # Namnet på ditt DBT-projekt
+version: '1.0'  # Version av projektet
+
+config-version: 2  # Version av DBT-konfigurationsformatet
+
+profile: 'dbt_code'  # Profilen som används för att ansluta till databasen (definieras i .dbt/profiles.yml)
+
+# Rensningsinställningar: Sätt att definiera vilka kataloger och filer som ska tas bort vid körning
+clean-targets:
+  - target  # Ta bort allt innehåll från target-katalogen efter varje körning
+  - logs  # Ta bort loggar från logs-mappen
+
+# Definiera inställningar för modeller i projektet
+models:
+  dbt_code:  # Namnet på ditt projekt
+    staging:  # Modeller som är specifika för staging-mappen
+      materialized: view  
+      schema: staging
+    refined:  # Modeller som är specifika för staging-mappen
+    materialized: view  
+    schema: refined
+
