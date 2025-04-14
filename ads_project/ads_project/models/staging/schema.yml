@@ -7,4 +7,36 @@ sources:
 
 models:
   - name: job_ads
-    description: "Stagingmodell för job ads med kolumnalias"
+    description: "Transformerad modell för jobannonser"
+    columns:
+      - name: job_id
+        description: "Unikt ID för varje jobb"
+        tests:
+          - not_null
+          - unique
+
+      - name: job_title
+        description: "Jobbtitel"
+        tests:
+          - not_null
+
+      - name: company_name
+        description: "Företagsnamn"
+        tests:
+          - not_null
+
+      - name: min_hours
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "min_hours >= 0"
+
+      - name: max_hours
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "max_hours >= min_hours"
+
+      - name: publication_date
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "publication_date <= current_date"
+
